@@ -27,7 +27,7 @@
         .logo span { color: var(--neon-gold); }
         #google_translate_element { background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 8px; }
 
-        /* Estilo visual interactivo para los elementos editables en Modo Propietario */
+        /* Efecto dinámico visual sobre campos de texto editables en vivo */
         .edit-mode-active .editable { border: 2.5px dashed var(--coral-flor)!important; padding: 4px; background-color: var(--gris-editable); cursor: text; position: relative; animation: titilar 1.5s infinite; color: #2c3e50 !important; }
         @keyframes titilar { 0% { border-color: var(--coral-flor); } 50% { border-color: var(--neon-gold); } 100% { border-color: var(--coral-flor); } }
 
@@ -86,6 +86,7 @@
     </style>
 </head>
 <body>
+    <!-- Barra informativa superior -->
     <div id="status-bar">MODO PROPIETARIO ACTIVO: Haz clic sobre cualquier cuadro marcado para cambiar su texto directamente</div>
     
     <header id="main-header">
@@ -100,7 +101,7 @@
         <p class="editable" id="f-d1">Propuesta activa para inversionistas internacionales. Proyecto de ecoturismo autosustentable con protección de biodiversidad nativa activa en la Comarca Ngäbe-Buglé.</p>
     </div>
 
-    <!-- SECCIÓN HERO PITCH -->
+    <!-- SECCIÓN INTRODUCTORIA (HERO) -->
     <section id="hero-pitch">
         <h1 class="editable" id="p-title">THE BUNKER Restaurante & Hostal</h1>
         <p class="editable" id="p-sub">Explora nuestro catálogo oficial de servicios gastronómicos, áreas Overland car camping y turismo activo en Willy Mazue, Bürí.</p>
@@ -113,7 +114,7 @@
         <p class="section-subtitle editable" id="hosp-subtitle">Elige la experiencia que mejor se adapte a tu espíritu aventurero en Bürí.</p>
         
         <div class="grid">
-            <!-- Tarjeta 1 -->
+            <!-- Tarjeta 1: Car Camping -->
             <div class="card">
                 <div class="card-img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://unsplash.com');">
                     <span class="card-badge">Overland</span>
@@ -127,8 +128,6 @@
                 </div>
             </div>
 
-            <!-- Tarjeta 2 -->
+            <!-- Tarjeta 2: Eco Hostal -->
             <div class="card">
                 <div class="card-img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://unsplash.com');">
-                    <span class="card-badge">Eco Hostal</span>
-                </div>
