@@ -174,3 +174,26 @@ html<!DOCTYPE html>
                 <div class="form-control">
                     <label>Asignar a qué Área:</label>
                     <select id="nueva-area">
+                            <script>
+        const plantillasPredeterminadas = {
+            hospedaje: { titulo: "Hospedaje entre Flores", desc: "Cabañas rústicas y áreas de Car Camping rodeadas de heliconias, orquídeas y el sonido del río.", foto: "hospedaje.jpg" },
+            restaurante: { titulo: "Cocina de la Huerta", desc: "Comida típica y orgánica preparada con ingredientes frescos del sector de Bürí.", foto: "restaurante.jpg" },
+            senderismo: { titulo: "Senderos en el Bosque", desc: "Camina bajo árboles nativos gigantes y respira el aire más puro de la montaña.", foto: "bosque.jpg" },
+            aves: { titulo: "Avistamiento de Aves", desc: "Divisa tucanes, colibríes y fauna exótica directamente desde nuestro búnker ecológico.", foto: "aves.jpg" },
+            insectos: { titulo: "Mariposas e Insectos", desc: "Un santuario lleno de mariposas multicolores y polinizadores atraídos por la flora.", foto: "mariposa.jpg" }
+        };
+        if (!localStorage.getItem('bunker_plantillas')) localStorage.setItem('bunker_plantillas', JSON.stringify(plantillasPredeterminadas));
+        function mostrarArea(areaKey, botonSelector = null) {
+            if(botonSelector) { document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('activo')); botonSelector.classList.add('activo'); }
+            const baseDatos = JSON.parse(localStorage.getItem('bunker_plantillas')); const datosArea = baseDatos[areaKey];
+            document.getElementById('visor-contenido').innerHTML = `<div class="plantilla-img" style="background-image: url('${datosArea.foto}')"></div><div class="plantilla-info"><h2>${datosArea.titulo}</h2><p>${datosArea.desc}</p><a href="https://wa.me" target="_blank" class="btn-action" style="background-color: #25d366;">💬 WhatsApp</a></div>`;
+        }
+        function desbloquearCreador() { if (prompt("Contraseña:") === "bunker123") { document.getElementById('creator-panel').style.display = "block"; window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); } else { alert("Incorrecta."); } }
+        function crearNuevaPlantilla(event) { event.preventDefault(); const area = document.getElementById('nueva-area').value; const titulo = document.getElementById('nuevo-titulo').value; const desc = document.getElementById('nueva-descripcion').value; const foto = document.getElementById('nueva-foto').value; let baseDatos = JSON.parse(localStorage.getItem('bunker_plantillas')); baseDatos[area] = { titulo, desc, foto }; localStorage.setItem('bunker_plantillas', JSON.stringify(baseDatos)); mostrarArea(area); alert("✨ ¡Actualizado!"); }
+        function agregarResenaNueva(event) { event.preventDefault(); const nombre = document.getElementById('form-nombre').value; const estrellas = document.getElementById('form-estrellas').value; const comentario = document.getElementById('form-comentario').value; let resenas = JSON.parse(localStorage.getItem('bunker_resenas')) || []; resenas.unshift({ nombre, estrellas, comentario }); localStorage.setItem('bunker_resenas', JSON.stringify(resenas)); cargarResenas(); document.getElementById('opinionForm').reset(); }
+        function cargarResenas() { const contenedor = document.getElementById('contenedor-resenas'); let resenas = JSON.parse(localStorage.getItem('bunker_resenas')) || []; let html = `<div class="resena-card"><div class="resena-header"><span>Familia Miller</span><span>⭐⭐⭐⭐⭐</span></div><p>"Excelente car camping y río limpio."</p></div>`; resenas.forEach(r => { html += `<div class="resena-card"><div class="resena-header"><span>${r.nombre}</span><span>⭐⭐⭐⭐⭐</span></div><p>"${r.comentario}"</p></div>`; }); contenedor.innerHTML = html; }
+        document.addEventListener("DOMContentLoaded", () => { mostrarArea('hospedaje'); cargarResenas(); });
+    </script>
+</body>
+</html>
+
