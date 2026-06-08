@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Bunker</title>
+    <title>THE BUNKER | Hospedaje, Restaurante y Aventura en Bürí</title>
     <style>
-        /* Paleta Boscosa de The Bunker */
+        /* Paleta Boscosa de THE BUNKER */
         :root {
             --verde-bunker: #1E3F20;
             --musgo: #4A6B48;
@@ -13,13 +13,13 @@
             --tierra: #F4F1EA;
             --madera: #3E2723;
             --blanco: #FFFFFF;
-            --radio-borde: 12px; /* Control de bordes */
+            --radio-borde: 12px;
         }
 
         /* Estilos Base */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; scroll-behavior: smooth; }
         body { background: var(--tierra); color: #2C3E35; line-height: 1.6; padding-top: 70px; }
-        h1, h2, h3 { color: var(--verde-bunker); font-weight: 700; }
+        h1, h2, h3, h4 { color: var(--verde-bunker); font-weight: 700; }
         section { padding: 60px 8%; position: relative; }
         .blanco { background: var(--blanco); }
         
@@ -30,34 +30,52 @@
             display: inline-block; transition: 0.3s; border: none; cursor: pointer;
         }
         .btn:hover { background: var(--hoja); color: var(--verde-bunker); }
+        
+        .btn-wsr { background: #25D366; color: white; margin-top: 15px; width: 100%; text-align: center; display: inline-block; text-decoration: none; padding: 10px; border-radius: 25px; font-weight: bold; }
+        .btn-wsr:hover { background: #128C7E; color: white; }
 
         /* Navegación Fija */
         header { 
             background: var(--verde-bunker); padding: 15px 8%; position: fixed; 
             top: 0; width: 100%; z-index: 1000; display: flex; justify-content: space-between; align-items: center; 
         }
-        .logo-text { color: var(--tierra); font-weight: bold; font-size: 1.4rem; }
+        .logo-text { color: var(--tierra); font-weight: bold; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
         header nav { display: flex; gap: 20px; }
         header nav a { color: var(--tierra); text-decoration: none; font-weight: 500; }
 
         /* Portada Principal (Hero) */
         .hero { 
-            background: linear-gradient(rgba(30,63,32,0.6), rgba(30,63,32,0.75)), 
-                        url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200') center/cover;
+            background: linear-gradient(rgba(30,63,32,0.4), rgba(30,63,32,0.65)), 
+                        url('https://unsplash.com') center/cover;
             height: 65vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--blanco);
         }
-        .hero h1 { color: var(--blanco); font-size: 3.5rem; margin-bottom: 15px; }
+        .hero h1 { color: var(--blanco); font-size: 3.5rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
         .hero p { color: var(--tierra); font-size: 1.2rem; max-width: 600px; margin-bottom: 25px; }
+        .hero .botones-hero { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         /* Estructura de Rejilla (Grid) */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: center; }
-        .card { background: var(--blanco); padding: 30px; border-radius: var(--radio-borde); text-align: center; border-top: 5px solid var(--musgo); position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; align-items: stretch; }
+        .card { background: var(--blanco); padding: 25px; border-radius: var(--radio-borde); display: flex; flex-direction: column; justify-content: space-between; border-top: 5px solid var(--musgo); position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
         
         img { border-radius: var(--radio-borde); cursor: pointer; transition: 0.3s; }
-        .card img { width: 100%; height: 180px; object-fit: cover; margin-top: 15px; }
+        .card img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 15px; }
 
-        /* Modo Administrador Visual */
-        [contenteditable="true"] { outline: 2px dashed var(--hoja) !important; background: rgba(162, 185, 151, 0.15); padding: 2px 5px; }
+        /* Indicadores visuales del Modo Administrador CMS */
+        .bunker-cms-activo [contenteditable="true"] { 
+            outline: 2px dashed var(--hoja) !important; 
+            background: rgba(162, 185, 151, 0.2) !important; 
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .bunker-foto-editable {
+            outline: 3px dashed var(--coral-flor, #e74c3c) !important;
+            opacity: 0.9;
+            cursor: pointer;
+        }
+        .bunker-hero-editable {
+            outline: 4px dashed #f1c40f !important;
+            cursor: pointer;
+        }
 
         /* Panel de Control Superior Fijo */
         #bar-admin { 
@@ -68,7 +86,6 @@
         #bar-admin button.del { background: #e74c3c; }
         #bar-admin button.opt { background: #34495e; border: 1px solid #7f8c8d; }
 
-        /* Botón de borrar elementos individuales */
         .btn-borrar-item {
             display: none; position: absolute; top: -10px; right: -10px; 
             background: #e74c3c; color: white; border: none; width: 26px; height: 26px; 
@@ -76,180 +93,83 @@
         }
 
         /* Footer */
-        footer { background: var(--madera); color: var(--tierra); text-align: center; padding: 25px; font-size: 0.9rem; }
+        footer { background: var(--madera); color: var(--tierra); text-align: center; padding: 30px; font-size: 0.9rem; }
         .lock { cursor: pointer; opacity: 0.6; font-weight: bold; }
     </style>
 </head>
-<body>
+<body class="bunker-portal">
 
-    <!-- Panel de control interactivo -->
+    <!-- Panel de control interactivo superior -->
     <div id="bar-admin">
-        <strong>⚙️ PANEL THE BUNKER:</strong>
-        <button onclick="agregarTarjeta()">➕ Añadir Tarjeta/Espacio</button>
+        <strong>⚙️ PANEL CMS THE BUNKER:</strong>
+        <button onclick="agregarTarjeta()">➕ Añadir Tarjeta</button>
         <button class="opt" onclick="cambiarBordes()">📐 Cambiar Bordes</button>
         <button onclick="guardarTodo()" style="background: #3498db;">💾 Guardar Todo</button>
-        <button class="del" onclick="cerrarEditor()">Salir</button>
+        <button class="del" onclick="cerrarEditor()">Salir sin guardar</button>
     </div>
 
     <!-- Encabezado / Navbar -->
     <header>
-        <div class="logo-text" id="logo-sitio">THE BUNKER</div>
+        <div class="logo-text editable" id="logo-sitio">THE BUNKER</div>
         <nav id="menu-navegacion">
-            <a href="#inicio">Inicio</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#experiencias">Experiencias</a>
+            <a href="#inicio" class="editable" id="nav-1">Inicio</a>
+            <a href="#nosotros" class="editable" id="nav-2">Nosotros</a>
+            <a href="#servicios" class="editable" id="nav-3">Servicios</a>
         </nav>
     </header>
 
     <!-- Zona editable dinámicamente -->
     <div id="bloques-dinamicos">
 
-        <!-- Portada -->
-        <section class="hero" id="inicio" onclick="cambiarFondoHero(this, event)">
-            <h1 id="hero-tit">Welcome to The Bunker</h1>
-            <p id="hero-sub">Tu refugio natural en Bocas del Toro. Un lugar diseñado para desconectar y vivir una experiencia única en el bosque.</p>
-            <a href="#nosotros" class="btn" id="hero-btn">Explorar</a>
+        <!-- Portada (Sección 1) -->
+        <section class="hero" id="inicio">
+            <h1 id="hero-tit" class="editable">THE BUNKER</h1>
+            <p id="hero-sub" class="editable">Tu refugio natural en Bürí. Un espacio diseñado para desconectar, descansar y vivir una experiencia única en el bosque profundo.</p>
+            <div class="botones-hero">
+                <a href="https://wa.me" target="_blank" class="btn editable" id="btn-hero-wa1">Chat WhatsApp 1</a>
+                <a href="https://wa.me" target="_blank" class="btn editable" style="background:var(--madera);" id="btn-hero-wa2">Chat WhatsApp 2</a>
+            </div>
         </section>
 
-        <!-- Nosotros -->
+        <!-- Nosotros (Sección 2) -->
         <section class="blanco" id="nosotros">
             <div class="grid">
                 <div>
-                    <h2>Sobre Nosotros</h2><br>
-                    <p>The Bunker nace como un concepto de integración total con la naturaleza. Buscamos ofrecer un espacio rústico pero sofisticado, donde la vegetación tropical y la tranquilidad sean los protagonistas absolutos de tu estadía.</p>
+                    <h2 class="editable" id="nosotros-tit">Sobre Nosotros</h2><br>
+                    <p class="editable" id="nosotros-desc">THE BUNKER nace como un concepto de integración total con la naturaleza de la comarca. Buscamos ofrecer un espacio rústico pero sofisticado, donde la vegetación tropical, la fauna silvestre y la tranquilidad absoluta sean los protagonistas de tu estadía rural.</p>
                 </div>
                 <div style="position: relative; width: 100%;">
-                    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600" style="width:100%;" onclick="cambiarImagen(this)">
+                    <!-- Imagen de Portada de Contenido -->
+                    <img src="https://unsplash.com" style="width:100%;" id="img-nosotros" alt="Bosque con niebla">
                 </div>
             </div>
         </section>
 
-        <!-- Contenedor de Experiencias / Tarjetas -->
-        <section id="experiencias">
-            <h2 style="text-align:center; margin-bottom: 40px;" id="titulo-exp">Nuestras Experiencias</h2>
+        <!-- Servicios y Experiencias (Sección 3) -->
+        <section id="servicios">
+            <h2 style="text-align:center; margin-bottom: 40px;" id="titulo-exp" class="editable">Nuestros Servicios y Aventura</h2>
             
             <div class="grid" id="contenedor-tarjetas">
-                <!-- Tarjeta 1 -->
-                <div class="card">
+                <!-- Tarjeta 1: Hostal -->
+                <div class="card" id="card-hostal">
                     <button class="btn-borrar-item" onclick="this.parentElement.remove()">✕</button>
-                    <h3>Ecoturismo</h3>
-                    <p>Inmersión absoluta en los senderos forestales y biodiversidad local.</p>
-                    <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400" onclick="cambiarImagen(this)">
+                    <img src="https://unsplash.com" id="img-card-1" alt="Hospedaje Hostal">
+                    <h3 class="editable" id="tit-card-1">Hostal Ecológico</h3>
+                    <p class="editable" id="desc-card-1">Habitaciones cómodas diseñadas en armonía con el entorno, ideales para el descanso profundo de viajeros y aventureros.</p>
+                    <a href="https://wa.me" target="_blank" class="btn btn-wsr editable" id="btn-card-1">Reservar Hostal</a>
                 </div>
-                <!-- Tarjeta 2 -->
-                <div class="card">
+
+                <!-- Tarjeta 2: Restaurante -->
+                <div class="card" id="card-restaurante">
                     <button class="btn-borrar-item" onclick="this.parentElement.remove()">✕</button>
-                    <h3>Diseño Rústico</h3>
-                    <p>Instalaciones fabricadas en armonía con maderas y materiales sustentables.</p>
-                    <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=400" onclick="changeImg(this)">
+                    <img src="https://unsplash.com" id="img-card-2" alt="Restaurante">
+                    <h3 class="editable" id="tit-card-2">Restaurante del Bosque</h3>
+                    <p class="editable" id="desc-card-2">Sabores locales e ingredientes frescos del campo para reponer energías después de tus exploraciones de montaña.</p>
+                    <a href="https://wa.me" target="_blank" class="btn btn-wsr editable" id="btn-card-2">Consultar Menú</a>
                 </div>
-            </div>
-        </section>
 
-    </div>
-
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2026 The Bunker. Todos los derechos reservados. | <span class="lock" onclick="entrarAdmin()">🔒 Panel</span></p>
-    </footer>
-
-    <!-- Script del Motor de Administración sin fallos -->
-    <script>
-        let modoAdmin = false;
-
-        // Recuperar base de datos local al cargar la web
-        window.onload = function() {
-            if(localStorage.getItem('bunkerSitioHTML')) {
-                document.getElementById('bloques-dinamicos').innerHTML = localStorage.getItem('bunkerSitioHTML');
-            }
-            if(localStorage.getItem('bunkerLogo')) {
-                document.getElementById('logo-sitio').innerText = localStorage.getItem('bunkerLogo');
-            }
-            if(localStorage.getItem('bunkerMenu')) {
-                document.getElementById('menu-navegacion').innerHTML = localStorage.getItem('bunkerMenu');
-            }
-            if(localStorage.getItem('bunkerBordes')) {
-                document.documentElement.style.setProperty('--radio-borde', localStorage.getItem('bunkerBordes'));
-            }
-        }
-
-        // Validación de contraseña bunker123
-        function entrarAdmin() {
-            if(prompt("Introduce clave de acceso:") === "bunker123") {
-                modoAdmin = true;
-                document.getElementById('bar-admin').style.display = "block";
-                document.body.style.paddingTop = "110px"; // Ajuste para que no tape el menú
-                
-                // Habilitar edición de textos en toda la estructura
-                document.querySelectorAll('#bloques-dinamicos h1, #bloques-dinamicos h2, #bloques-dinamicos h3, #bloques-dinamicos p, #bloques-dinamicos .btn, #logo-sitio, #menu-navegacion a').forEach(el => {
-                    el.contentEditable = true;
-                });
-
-                // Mostrar los botones rojos [X] para eliminar tarjetas
-                document.querySelectorAll('.btn-borrar-item').forEach(btn => btn.style.display = "block");
-                
-                alert("Modo Administrador activado.\n• Haz clic en cualquier texto para reescribirlo.\n• Haz clic en las fotos para cambiarlas.\n• Usa el panel superior para añadir bloques.");
-            } else {
-                alert("Clave denegada.");
-            }
-        }
-
-        // Agregar una nueva tarjeta de servicio de forma limpia
-        function agregarTarjeta() {
-            if(!modoAdmin) return;
-            const contenedor = document.getElementById('contenedor-tarjetas');
-            const nuevaCard = document.createElement('div');
-            nuevaCard.className = 'card';
-            nuevaCard.innerHTML = `
-                <button class="btn-borrar-item" style="display:block;" onclick="this.parentElement.remove()">✕</button>
-                <h3 contenteditable="true">Nuevo Espacio</h3>
-                <p contenteditable="true">Escribe los detalles aquí...</p>
-                <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=400" onclick="cambiarImagen(this)">
-            `;
-            contenedor.appendChild(nuevaCard);
-        }
-
-        // Cambiar imágenes
-        function cambiarImagen(img) {
-            if(!modoAdmin) return;
-            let url = prompt("Escribe o pega la nueva URL de la imagen:", img.src);
-            if(url) img.src = url;
-        }
-
-        // Cambiar fondo de la portada
-        function cambiarFondoHero(hero, e) {
-            if(!modoAdmin || e.target !== hero) return;
-            let url = prompt("Inserta la URL de la imagen de fondo para la portada:");
-            if(url) hero.style.backgroundImage = `linear-gradient(rgba(30,63,32,0.6), rgba(30,63,32,0.75)), url('${url}')`;
-        }
-
-        // Alternar el estilo de los bordes (Redondeados o Rectos)
-        function cambiarBordes() {
-            if(!modoAdmin) return;
-            let actual = getComputedStyle(document.documentElement).getPropertyValue('--radio-borde').trim();
-            let nuevo = actual === "12px" ? "0px" : actual === "0px" ? "30px" : "12px";
-            document.documentElement.style.setProperty('--radio-borde', nuevo);
-        }
-
-        // Guardar todos los cambios en el disco duro del navegador
-        function guardarTodo() {
-            // Desactivar temporalmente antes de la copia limpia
-            document.querySelectorAll('[contenteditable="true"]').forEach(el => el.removeAttribute('contenteditable'));
-            document.querySelectorAll('.btn-borrar-item').forEach(btn => btn.style.display = "none");
-            
-            // Guardar componentes por separado para evitar errores
-            localStorage.setItem('bunkerSitioHTML', document.getElementById('bloques-dinamicos').innerHTML);
-            localStorage.setItem('bunkerLogo', document.getElementById('logo-sitio').innerText);
-            localStorage.setItem('bunkerMenu', document.getElementById('menu-navegacion').innerHTML);
-            localStorage.setItem('bunkerBordes', getComputedStyle(document.documentElement).getPropertyValue('--radio-borde'));
-
-            alert("¡Cambios guardados perfectamente!");
-            location.reload(); // Recarga la web limpia
-        }
-
-        function cerrarEditor() {
-            location.reload();
-        }
-    </script>
-</body>
-</html>
+                <!-- Tarjeta 3: Río -->
+                <div class="card" id="card-rio">
+                    <button class="btn-borrar-item" onclick="this.parentElement.remove()">✕</button>
+                    <img src="https://unsplash.com" id="img-card-3" alt="Río Cristalino">
+                    <h3 class="editable" id="tit-card-3">Río Cristalino</h3>
